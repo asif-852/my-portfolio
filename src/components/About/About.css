@@ -1,0 +1,60 @@
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about__bio {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about__bio p {
+  color: var(--text-secondary);
+  font-size: 0.975rem;
+  line-height: 1.8;
+}
+
+.about__cta {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+/* Skills */
+.about__skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.about__skill-category {
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  color: var(--accent-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.about__skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+@media (max-width: 900px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 540px) {
+  .about__skills {
+    grid-template-columns: 1fr;
+  }
+}
