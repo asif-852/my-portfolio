@@ -1,10 +1,23 @@
+/* ============================================================
+   About — layout & component styles
+   ============================================================ */
+
+/* Two-column outer grid */
 .about__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: start;
+  align-items: center;
 }
 
+/* ── LEFT — section header + bio ── */
+.about__left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* section-label / section-title / section-divider keep their global styles;
+   the bio sits directly below with its own gap */
 .about__bio {
   display: flex;
   flex-direction: column;
@@ -13,7 +26,7 @@
 
 .about__bio p {
   color: var(--text-secondary);
-  font-size: 0.975rem;
+  font-size: 0.94rem;
   line-height: 1.8;
 }
 
@@ -22,39 +35,136 @@
   margin-top: 8px;
 }
 
-/* Skills */
-.about__skills {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* ── RIGHT — stacks education then skills ── */
+.about__right {
+  display: flex;
+  flex-direction: column;
   gap: 28px;
 }
 
-.about__skill-category {
-  font-size: 0.78rem;
+/* Shared sub-heading (Education / Skills labels) */
+.about__sub-heading {
+  font-size: 0.72rem;
   font-family: var(--font-mono);
   color: var(--accent-light);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 12px;
   font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* ── Education cards ── */
+.about__edu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edu-card {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.edu-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 4px 18px var(--accent-glow);
+}
+
+.edu-card__accent {
+  width: 4px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-light) 100%);
+}
+
+.edu-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  flex: 1;
+}
+
+.edu-card__degree {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.edu-card__institute {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.edu-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+.edu-card__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.edu-card__grade {
+  color: var(--accent-light);
+}
+
+/* ── Skills — one-liner rows ── */
+.about__skills {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about__skill-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Fixed-width category label so tags start at the same indent */
+.about__skill-category {
+  flex-shrink: 0;
+  width: 96px;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--accent-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  padding-top: 4px;        /* align with tag top */
+  line-height: 1.3;
 }
 
 .about__skill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   list-style: none;
 }
 
+/* Slightly smaller tags to keep rows compact */
+.about__skill-list .tag {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+}
+
+/* ── Responsive ── */
 @media (max-width: 900px) {
   .about__grid {
     grid-template-columns: 1fr;
     gap: 40px;
-  }
-}
-
-@media (max-width: 540px) {
-  .about__skills {
-    grid-template-columns: 1fr;
   }
 }
