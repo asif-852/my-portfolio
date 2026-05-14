@@ -134,6 +134,12 @@
   font-weight: 500;
 }
 
+.contact__error {
+  font-size: 0.875rem;
+  color: #f87171;
+  font-weight: 500;
+}
+
 @media (max-width: 860px) {
   .contact__grid {
     grid-template-columns: 1fr;

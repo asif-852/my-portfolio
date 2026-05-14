@@ -1,8 +1,22 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiSend } from 'react-icons/fi';
+import emailjs from '@emailjs/browser';
 import { personalInfo } from '../../data/portfolioData';
 import './Contact.css';
+
+// ============================================================
+//  EmailJS Configuration
+//  TODO: Replace these with your actual EmailJS credentials
+//  1. Sign up at https://www.emailjs.com/
+//  2. Add an Email Service (Gmail) → copy the Service ID
+//  3. Create an Email Template → copy the Template ID
+//     Template variables: {{from_name}}, {{from_email}}, {{message}}
+//  4. Go to Account → API Keys → copy the Public Key
+// ============================================================
+const EMAILJS_SERVICE_ID = 'service_nj0imxj';
+const EMAILJS_TEMPLATE_ID = 'template_uuc9h7p';
+const EMAILJS_PUBLIC_KEY = 'I1eKx3jpfNJarCZ8u';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -14,23 +28,39 @@ const fadeUp = {
 };
 
 const Contact = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const sectionRef = useRef(null);
+  const formRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const [form, setForm] = useState({ from_name: '', from_email: '', message: '' });
   const [status, setStatus] = useState(null); // 'sending' | 'sent' | 'error'
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = e => {
     e.preventDefault();
-    // Placeholder: connect to email service (EmailJS, Formspree, etc.)
-    setStatus('sent');
-    setForm({ name: '', email: '', message: '' });
-    setTimeout(() => setStatus(null), 4000);
+    setStatus('sending');
+
+    emailjs
+      .sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setStatus('sent');
+        setForm({ from_name: '', from_email: '', message: '' });
+        setTimeout(() => setStatus(null), 5000);
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', err);
+        setStatus('error');
+        setTimeout(() => setStatus(null), 5000);
+      });
   };
 
   return (
-    <section id="contact" className="contact section" ref={ref}>
+    <section id="contact" className="contact section" ref={sectionRef}>
       <div className="contact__blob" />
       <div className="container">
         <motion.p className="section-label" variants={fadeUp} initial="hidden" animate={isInView ? 'visible' : 'hidden'} custom={0}>
@@ -64,6 +94,7 @@ const Contact = () => {
 
           {/* Right: Form */}
           <motion.form
+            ref={formRef}
             className="contact__form"
             onSubmit={handleSubmit}
             variants={fadeUp}
@@ -73,24 +104,24 @@ const Contact = () => {
           >
             <div className="contact__form-row">
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="from_name">Name</label>
                 <input
-                  id="name"
-                  name="name"
+                  id="from_name"
+                  name="from_name"
                   type="text"
-                  value={form.name}
+                  value={form.from_name}
                   onChange={handleChange}
                   placeholder="Your name"
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="from_email">Email</label>
                 <input
-                  id="email"
-                  name="email"
+                  id="from_email"
+                  name="from_email"
                   type="email"
-                  value={form.email}
+                  value={form.from_email}
                   onChange={handleChange}
                   placeholder="your@email.com"
                   required
@@ -120,6 +151,15 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
               >
                 ✅ Message sent! I'll get back to you soon.
+              </motion.p>
+            )}
+            {status === 'error' && (
+              <motion.p
+                className="contact__error"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                ❌ Something went wrong. Please try again or email me directly.
               </motion.p>
             )}
           </motion.form>

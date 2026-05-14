@@ -12,6 +12,7 @@ import timusIcon from '../assets/icons/Timus_logo.png';
 import spojIcon from '../assets/icons/SPOJ_logo.jpg';
 import atcoderIcon from '../assets/icons/atcoder_logo_1.png';
 import codechefIcon from '../assets/icons/Codechef_logo.png';
+import lintcodeIcon from '../assets/icons/lintcode_logo.png';
 
 export const personalInfo = {
   name: "Asif Azam Biswas",
@@ -23,7 +24,7 @@ export const personalInfo = {
   ],
   location: "Rajshahi, Bangladesh",
   email: "asifazambiswas@gmail.com",
-  resumeUrl: "#", // replace with actual resume URL
+  resumeUrl: "/resume.pdf", // replace with actual resume URL
   avatarUrl: null, // replace with URL or import an image
   social: {
     github: "https://github.com/asif-852",
@@ -34,8 +35,8 @@ export const personalInfo = {
 
 export const skills = [
   { category: "Frontend", items: ["React", "JavaScript", "TypeScript", "HTML", "CSS"] },
-  { category: "Backend", items: ["Node.js", "NestJS", "Express", "Python", "REST APIs"] },
-  { category: "Database", items: ["PostgreSQL", "MongoDB", "Redis", "Prisma"] },
+  { category: "Backend", items: ["Node.js", "Express", "Python", "Django", "REST APIs"] },
+  { category: "Database", items: ["PostgreSQL", "MongoDB", "MySQL"] },
   { category: "DevOps & Tools", items: ["Docker", "Git", "Github", "Linux", "Bash"] },
 ];
 
@@ -59,34 +60,47 @@ export const education = [
 export const projects = [
   {
     id: 1,
-    title: "ShopSphere",
-    description:
-      "A full-featured e-commerce platform with real-time inventory, Stripe payments, and a custom admin dashboard.",
-    tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
-    liveUrl: "#",
-    repoUrl: "#",
+    title: "Codeforces Problem Recommender",
+    description: {
+      intro: "Enter your Codeforces handle and get personalized problems matched to your rating and weakest topics.",
+      bullets: [
+        "Classifies users into 4 skill tiers; scans full submission history to identify top 3 struggled tags via weighted-random sampling biased toward recent-contest problems.",
+        "Django + DRF service-layer architecture: thin views, isolated business logic, and a full test suite (unit + integration with unittest.mock & DRF APIClient).",
+        "Thread-safe rate limiter (threading.Lock + time.monotonic) guards the Codeforces API; 30-min in-memory cache eliminates redundant fetches of the 10k-problem catalog.",
+        "Dual-layer input validation (client + server), graceful API error degradation, structured logging, and env-based config via python-decouple.",
+      ],
+    },
+    tags: ["Python", "Django", "Django REST Framework", "React", "REST API", "Caching", "Rate Limiting"],
+    repoUrl: "https://github.com/asif-852/Codeforces-Problem-Recommender",
     featured: true,
   },
   {
     id: 2,
-    title: "DevConnect",
-    description:
-      "A developer social network where engineers share projects, collaborate on code, and hire talent.",
-    tags: ["Next.js", "GraphQL", "MongoDB", "TailwindCSS"],
-    liveUrl: "#",
-    repoUrl: "#",
+    title: "Expense Tracker Application",
+    description: {
+      intro: "An expense tracker application for personal finance management.",
+      bullets: [
+        "Developed a full-stack expense tracker application using MongoDB, Node.js, Express, and React.",
+        "Implemented JWT authentication and refresh tokens for secure user sessions.",
+        "Created a RESTful API for managing transactions with CRUD operations.",
+        "Designed a responsive user interface for tracking income and expenses.",
+      ],
+    },
+    tags: ["MongoDB", "Nodejs", "Express", "React", "JWT Authentication"],
+    // liveUrl: "#",
+    repoUrl: "https://github.com/asif-852/expense-tracker-app",
     featured: true,
   },
-  {
-    id: 3,
-    title: "TaskFlow",
-    description:
-      "A Kanban-style project management tool with drag-and-drop, real-time sync, and team workspaces.",
-    tags: ["React", "Firebase", "TypeScript", "DnD Kit"],
-    liveUrl: "#",
-    repoUrl: "#",
-    featured: true,
-  },
+  // {
+  //   id: 3,
+  //   title: "TaskFlow",
+  //   description:
+  //     "A Kanban-style project management tool with drag-and-drop, real-time sync, and team workspaces.",
+  //   tags: ["React", "Firebase", "TypeScript", "DnD Kit"],
+  //   liveUrl: "#",
+  //   repoUrl: "#",
+  //   featured: false,
+  // },
   {
     id: 4,
     title: "Competitive Programming & Problem Solving",
@@ -107,11 +121,11 @@ export const projects = [
   },
   {
     id: 6,
-    title: "CryptoTrack",
+    title: "JavaScript Deep Dive",
     description:
-      "A cryptocurrency portfolio tracker with live prices, customisable alerts, and historical charts.",
-    tags: ["React", "WebSockets", "Chart.js"],
-    repoUrl: "#",
+      "A collection of JavaScript and TypeScript problems' solutions from LeetCode, small projects, learning materials covering various topics and concepts.",
+    tags: ["JavaScript", "TypeScript", "LeetCode"],
+    repoUrl: "https://github.com/asif-852/JavaScript-Deep-Dive",
     featured: false,
   },
 ];
@@ -249,6 +263,15 @@ export const cpProfiles = [
     stats: "60+ Problems Solved",
     featured: false,
   },
+  {
+    id: 10,
+    platform: "LintCode",
+    handle: "LCuser_90LO8Y",               // replace with your handle
+    profileUrl: "https://www.lintcode.com/user/LCuser_90LO8Y/",
+    iconUrl: lintcodeIcon,
+    stats: "30+ Problems Solved",
+    featured: false,
+  }
 ];
 
 export const navLinks = [

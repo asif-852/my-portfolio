@@ -1,13 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { navLinks, personalInfo } from '../../data/portfolioData';
 import './Navbar.css';
 
+/**
+ * Returns the id of the section currently most visible in the viewport.
+ * Uses IntersectionObserver so it works correctly even for the last section
+ * (which react-scroll's built-in spy misses because the page can't scroll far
+ * enough to cross its threshold).
+ */
+function useActiveSection(ids) {
+  const [active, setActive] = useState('');
+  const ratioRef = useRef({});
+
+  useEffect(() => {
+    const observers = [];
+
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          ratioRef.current[id] = entry.intersectionRatio;
+
+          // Pick the section with the highest visible ratio
+          const best = Object.entries(ratioRef.current).reduce(
+            (acc, [key, ratio]) => (ratio > acc.ratio ? { id: key, ratio } : acc),
+            { id: '', ratio: -1 }
+          );
+          if (best.ratio > 0) setActive(best.id);
+        },
+        { threshold: Array.from({ length: 21 }, (_, i) => i * 0.05) }
+      );
+
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [ids]);
+
+  return active;
+}
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const sectionIds = navLinks.map((l) => l.to);
+  const activeSection = useActiveSection(sectionIds);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -33,16 +77,14 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <ul className="navbar__links">
-          {navLinks.map((link, i) => (
+          {navLinks.map((link) => (
             <li key={link.to}>
               <Link
                 to={link.to}
                 smooth
                 duration={600}
                 offset={-70}
-                activeClass="active"
-                spy
-                className="navbar__link"
+                className={`navbar__link${activeSection === link.to ? ' active' : ''}`}
               >
                 {link.label}
               </Link>
@@ -81,14 +123,14 @@ const Navbar = () => {
             transition={{ duration: 0.22 }}
           >
             <ul>
-              {navLinks.map((link, i) => (
+              {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
                     smooth
                     duration={600}
                     offset={-70}
-                    className="navbar__mobile-link"
+                    className={`navbar__mobile-link${activeSection === link.to ? ' active' : ''}`}
                     onClick={() => setMenuOpen(false)}
                   >
                     {link.label}

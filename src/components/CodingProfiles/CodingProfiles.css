@@ -3,6 +3,10 @@
    ============================================================ */
 
 /* ── Featured cards grid ── */
+.cp-profiles.section {
+  padding: 60px 0;
+}
+
 .cp-featured {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -111,11 +115,15 @@
   margin-top: 2px;
 }
 
+/* Top-right group: badge + external link icon */
+.cp-card__top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* "Featured" badge */
 .cp-card__badge {
-  position: absolute;
-  top: 14px;
-  right: 36px;
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
@@ -124,6 +132,7 @@
   border: 1px solid rgba(124, 58, 237, 0.25);
   border-radius: 100px;
   padding: 2px 10px;
+  white-space: nowrap;
 }
 
 /* ── Other platforms title ── */

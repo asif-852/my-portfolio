@@ -79,7 +79,10 @@ const CodingProfiles = () => {
                 <div className="cp-card__icon-wrap">
                   <PlatformIcon iconUrl={profile.iconUrl} platform={profile.platform} />
                 </div>
-                <FiExternalLink className="cp-card__ext" size={16} />
+                <div className="cp-card__top-right">
+                  <span className="cp-card__badge">Featured</span>
+                  <FiExternalLink className="cp-card__ext" size={16} />
+                </div>
               </div>
 
               <div className="cp-card__body">
@@ -89,8 +92,6 @@ const CodingProfiles = () => {
                   <p className="cp-card__stats">{profile.stats}</p>
                 )}
               </div>
-
-              <span className="cp-card__badge">Featured</span>
             </motion.a>
           ))}
         </div>

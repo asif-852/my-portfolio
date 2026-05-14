@@ -145,7 +145,8 @@
   transition: color var(--transition);
 }
 
-.navbar__mobile-link:hover {
+.navbar__mobile-link:hover,
+.navbar__mobile-link.active {
   color: var(--text-primary);
 }
 

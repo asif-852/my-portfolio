@@ -61,7 +61,18 @@ const Projects = () => {
                 </div>
               </div>
               <h3 className="project-card__title">{project.title}</h3>
-              <p className="project-card__desc">{project.description}</p>
+              {typeof project.description === 'string' ? (
+                <p className="project-card__desc">{project.description}</p>
+              ) : (
+                <div className="project-card__desc">
+                  <p className="project-card__desc-intro">{project.description.intro}</p>
+                  <ul className="project-card__desc-bullets">
+                    {project.description.bullets.map((b, idx) => (
+                      <li key={idx}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="project-card__tags">
                 {project.tags.map(tag => (
                   <span key={tag} className="tag">{tag}</span>

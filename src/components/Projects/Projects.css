@@ -74,6 +74,33 @@
   flex: 1;
 }
 
+.project-card__desc-intro {
+  margin-bottom: 10px;
+}
+
+.project-card__desc-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.project-card__desc-bullets li {
+  padding-left: 1.1em;
+  position: relative;
+}
+
+.project-card__desc-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent-light);
+  font-size: 0.75em;
+  top: 0.2em;
+}
+
 .project-card__tags {
   display: flex;
   flex-wrap: wrap;
