@@ -36,8 +36,8 @@ export const personalInfo = {
 export const skills = [
   { category: "Frontend", items: ["React", "JavaScript", "TypeScript", "HTML", "CSS"] },
   { category: "Backend", items: ["Node.js", "Express", "Python", "Django", "REST APIs"] },
-  { category: "Database", items: ["PostgreSQL", "MongoDB", "MySQL"] },
-  { category: "DevOps & Tools", items: ["Docker", "Git", "Github", "Linux", "Bash"] },
+  { category: "Database", items: ["MongoDB", "MySQL"] },
+  { category: "DevOps & Tools", items: ["Git", "Github", "Linux", "Bash"] },
 ];
 
 export const education = [
@@ -72,6 +72,7 @@ export const projects = [
     },
     tags: ["Python", "Django", "Django REST Framework", "React", "REST API", "Caching", "Rate Limiting"],
     repoUrl: "https://github.com/asif-852/Codeforces-Problem-Recommender",
+    liveUrl: "https://cf-recommender.netlify.app",
     featured: true,
   },
   {
